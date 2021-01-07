@@ -38,7 +38,7 @@ public class MyLinkedList {
 		return current;
 	}
 	public void add(int index, String value) {
-		if (index > size()) throw new IndexOutOfBoundsException("Index out of bounds");
+		if (index < 0 || index > size()) throw new IndexOutOfBoundsException("Index out of bounds");
 		if (index == size()) {
 			add(value);
 			return;
@@ -74,16 +74,26 @@ public class MyLinkedList {
 		if (size == 0) return "[]";
 		Node current = start;
 		String output = "[";
-		//TODO this sucks make it better
-		boolean lastOne = false; //because reasons, see commit history too lazy to explain
-		while (true) {
+		while (current != null) {
 			output += current.getData();
-			if (lastOne) break;
 			if (current.getNext() != null) {
 				output += ", ";
 			}
 			current = current.getNext();
-			if (current.getNext() == null) lastOne = true;
+		}
+		output += "]";
+		return output;
+	}
+	public String toStringReversed() {
+		if (size == 0) return "[]";
+		Node current = end;
+		String output = "[";
+		while (current != null) {
+			output += current.getData();
+			if (current.getPrev() != null) {
+				output += ", ";
+			}
+			current = current.getPrev();
 		}
 		output += "]";
 		return output;
