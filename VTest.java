@@ -40,14 +40,14 @@ public class VTest {
 			dp("Testing get(int index)");
 			int gcp = 0;
 			for (int i = 0; i < NUMBER_OF_GET_CHECKS; i++) { //sure, let's reuse that, why not
-				int rind = Math.abs(rng.nextInt() % al.size());
+				int rind = Math.abs(rng.nextInt()) % al.size();
 				if (!l.get(rind).equals(al.get(rind))) System.out.println("Get check failed!");
 				else gcp++;
 			}
 			dp(""+gcp + " get checks passed");
 
 			dp("Testing toString(), which also tests everything up to this point");
-			if (l.toString().equals(al.toString())) System.out.println("toString check failed! This might be because of toString, but might also be because of your add or set methods.");
+			if (!l.toString().equals(al.toString())) System.out.println("toString check failed! This might be because of toString, but might also be because of your add or set methods.");
 
 			dp("Testing set(int index, String value)");
 			for (int i = 0; i < rng.nextInt() % al.size(); i++) {
@@ -58,7 +58,7 @@ public class VTest {
 			}
 
 			dp("Testing toString(), which also tests everything up to this point");
-			if (l.toString().equals(al.toString())) System.out.println("toString check failed! This might be because of toString, but might also be because of your add or set methods.");
+			if (!l.toString().equals(al.toString())) System.out.println("toString check failed! This might be because of toString, but might also be because of your add or set methods.");
 		}
 	}
 	public static void dp(Object msg) {

@@ -71,14 +71,19 @@ public class MyLinkedList {
 	}
 
 	public String toString() {
+		if (size == 0) return "[]";
 		Node current = start;
 		String output = "[";
-		while (current.getNext() != null) {
+		//TODO this sucks make it better
+		boolean lastOne = false; //because reasons, see commit history too lazy to explain
+		while (true) {
 			output += current.getData();
-			current = current.getNext();
+			if (lastOne) break;
 			if (current.getNext() != null) {
 				output += ", ";
 			}
+			current = current.getNext();
+			if (current.getNext() == null) lastOne = true;
 		}
 		output += "]";
 		return output;
