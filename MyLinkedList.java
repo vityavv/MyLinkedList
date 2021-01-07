@@ -11,10 +11,7 @@ public class MyLinkedList {
 		if (size == 0) {
 			start = new Node(value);
 			end = start;
-			start.setNext(end);
-			end.setPrev(start);
-		} else
-		if (size == 1) {
+		} else if (size == 1) {
 			end = new Node(value);
 			start.setNext(end);
 			end.setPrev(start);
@@ -97,5 +94,43 @@ public class MyLinkedList {
 		}
 		output += "]";
 		return output;
+	}
+
+	public String remove(int index) {
+		if (index < 0 || index >= size()) throw new IndexOutOfBoundsException("Index out of bounds");
+		size--;
+		if (size()+1 == 1) {
+			String output = start.getData();
+			start = null;
+			end = null;
+			return output;
+		}
+		if (index == 0) {
+			String output = start.getData();
+			start = start.getNext();
+			start.setPrev(null);
+			return output;
+		}
+		if (index == size()) {
+			String output = end.getData();
+			end = end.getPrev();
+			end.setNext(null);
+			return output;
+		}
+		Node removed = getNodeAt(index);
+		removed.getNext().setPrev(removed.getPrev());
+		removed.getPrev().setNext(removed.getNext());
+		return removed.getData();
+	}
+
+	public void extend(MyLinkedList other) {
+		if (other.size() < 1) return;
+		end.setNext(other.start);
+		other.start.setPrev(end);
+		end = other.end;
+		size += other.size();
+		other.start = null;
+		other.end = null;
+		other.size = 0;
 	}
 }
